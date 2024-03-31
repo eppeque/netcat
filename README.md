@@ -2,9 +2,9 @@
 
 ![Static Badge](https://img.shields.io/badge/nc-1.0.0-blue)
 
-Netcat is a computer networking utility for reading from and writing to network connections using TCP. See [this link](https://en.wikipedia.org/wiki/Netcat) to learn more about Netcat.
+Netcat is a computer networking utility for reading from and writing to network connections using TCP. [Learn more](https://en.wikipedia.org/wiki/Netcat).
 
-This is a cross-platform version written in Rust.
+This is a cross-platform version written in [Rust](https://rust-lang.org).
 
 ## Download and installation
 
@@ -39,5 +39,15 @@ cargo install --path .
 ```
 
 > This command will build an optimized executable and install it so you'll be able to use it anywhere on your computer.
+
+## Usage
+
+This tool allows you to connect to a TCP server. Here is how to use it in the CLI:
+
+```bash
+netcat 127.0.0.1 8080
+```
+
+The IPv4 address followed by the port number.
 
 _Enjoy!_
