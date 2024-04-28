@@ -2,7 +2,7 @@ use std::{
     error::Error,
     io::{self, BufRead, BufReader, BufWriter, Write},
     net::{Ipv4Addr, TcpStream},
-    thread,
+    process, thread,
 };
 
 pub struct Config {
@@ -43,19 +43,24 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let stream = TcpStream::connect(address)?;
     let copy = stream.try_clone()?;
 
-    thread::spawn(|| handle_input(stream));
+    thread::spawn(|| {
+        if let Err(e) = handle_input(stream) {
+            eprintln!("Application error: {e}");
+            process::exit(1);
+        }
+    });
 
     handle_output(copy)?;
 
     Ok(())
 }
 
-fn handle_input(stream: TcpStream) {
+fn handle_input(stream: TcpStream) -> Result<(), Box<dyn Error>> {
     let mut buffer = BufReader::new(stream);
 
     loop {
         let mut line = String::new();
-        buffer.read_line(&mut line).unwrap();
+        buffer.read_line(&mut line)?;
 
         let line = line.trim();
 
@@ -72,14 +77,7 @@ fn handle_output(stream: TcpStream) -> Result<(), Box<dyn Error>> {
         let mut input = String::new();
         io::stdin().read_line(&mut input)?;
 
-        if let Err(_) = buffer.write_all(input.as_bytes()) {
-            break;
-        }
-
-        if let Err(_) = buffer.flush() {
-            break;
-        }
+        buffer.write_all(input.as_bytes())?;
+        buffer.flush()?;
     }
-
-    Ok(())
 }
