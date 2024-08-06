@@ -24,4 +24,12 @@ cargo install --git https://github.com/eppeque/netcat
 
 You can also directly download the compiled binary available in the `Release` section of this repository.
 
+## Usage
+
+Use the program as follows:
+
+```bash
+netcat <IP_ADDR> <PORT_NUM>
+```
+
 *Enjoy!*
