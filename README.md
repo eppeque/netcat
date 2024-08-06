@@ -15,7 +15,7 @@ Since you'll have to build the program, you'll need the Rust toolchain. You can 
 Once `rustup` is installed on your machine, you can run the following command:
 
 ```bash
-cargo install https://github.com/eppeque/netcat
+cargo install --git https://github.com/eppeque/netcat
 ```
 
 > This command will download the source code, build the program and make it runnable everywhere on your computer.
